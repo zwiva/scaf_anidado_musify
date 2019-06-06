@@ -15,6 +15,9 @@ class PlaylistsController < ApplicationController
   # GET /playlists/new
   def new
     @playlist = Playlist.new
+    # 4
+    @users_array = User.all.map{|x| [x.name, x.id]}
+
   end
 
   # GET /playlists/1/edit
@@ -71,4 +74,5 @@ class PlaylistsController < ApplicationController
     def playlist_params
       params.require(:playlist).permit(:name, :user_id)
     end
+
 end
