@@ -1,15 +1,60 @@
 <p id="notice"><%= notice %></p>
-
+<p> > Detalles de la playlist: </p>
 <p>
-  <strong>Name:</strong>
+  <strong>Playlist name: </strong>
   <%= @playlist.name %>
 </p>
 
 <p>
-  <strong>User:</strong>
+  <strong>User: </strong>
   <%# #6 %>
   <%= @playlist.user.name %> <%# show de playlist corregido al ponerle .name %>
 </p>
 
+<%# 8.2 insertamos formulario copiado desde _form %>
+<%# form_with(model: @playlist, Song.new , local: true) do |form| %>
+<%# cambia todos los playlists por @songs%>
+<p> > Ingresa tu cancion a esta playlist:</p>
+<%= form_with(model: [@playlist, @song], local: true) do |form| %>
+<%# es un formulario que recibe un hash con el numero del playlist y guarda una cancion %>
+  <% if @song.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this @song from being saved:</h2>
+
+      <ul>
+      <% @song.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  <%# recibe el nombre del artista %>
+    <%= form.label :artist %>
+    <%= form.text_field :artist %>
+  </div>
+  
+  <div class="field">
+  <%# recibe el nombre de la cancion %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%# 9 mostrar canciones%>
+<p> > Canciones de la playlist: </p>
+<% @playlist.songs.each do |song|%>
+<p><%=song.name%> / <%=song.artist%></p>
+<%# 11%>
+<%= link_to 'delete', delete_song_path(song), method: :delete %> <%# aqui metodo es delete, no destroy!!%>
+<%# %>
+<% end %>
+<br>
+<br>
 <%= link_to 'Edit', edit_playlist_path(@playlist) %> |
 <%= link_to 'Back', playlists_path %>
