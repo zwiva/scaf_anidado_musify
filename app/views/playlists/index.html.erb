@@ -7,6 +7,8 @@
     <tr>
       <th>Playlist name</th>
       <th>User</th>
+      <%# 14 %>
+      <th>Songs</th>      
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,6 +19,8 @@
         <td><%= playlist.name %></td>
         <%# #5 %>
         <td><%= playlist.user.name %></td> <%# agrego .name para corregir la vista%>
+        <%# 14 %>
+        <td><%= playlist.songs.count %></td> <%# agrego .name para corregir la vista%>    
         <td><%= link_to 'Show', playlist %></td>
         <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
         <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
